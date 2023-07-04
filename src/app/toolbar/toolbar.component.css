@@ -1,0 +1,41 @@
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    background-color: rgb(18, 18, 18);
+    color: rgb(237, 237, 237);
+    font-weight: 600;
+  }
+
+  .toolbar-right {
+    display: flex;
+    margin-right: 5%;
+  }
+
+  .toolbar-right h1 {
+    cursor: pointer;
+  }
+
+  .profile-btn {
+    text-decoration: none;
+    color: rgb(237, 237, 237);
+    font-size: large;
+    margin-right: 10px;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .homeLink {
+    color: #3c75df;
+    font-weight: 600;
+    font-size: 50px;
+    text-decoration: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    margin-left: 10px;
+  }

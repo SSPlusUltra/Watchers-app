@@ -1,0 +1,61 @@
+<toolbar [showProfileButton]="!isMyProfile"></toolbar>
+<div class="wrapper">
+<!-- Toolbar -->
+  <h1 class="header">{{user.username}}</h1>
+  <div class="spacer">
+<div *ngIf="!showList">
+  <h3>
+    <span (click)="showFollowers()">Followers: {{ user.followerList ? user.followerList.length : 0 }}</span>
+    <span (click)="showPosts()"class="spacer-line">Posts: {{posts.length}}</span>
+    <span (click)="showFollowing()">Following: {{ user.followingList ? user.followingList.length : 0 }}</span>
+  </h3>
+  <div *ngIf="!isMyProfile && loggedInUser.email!=user.email" class="container-btn">
+    <button class="follow-btn" (click)="followUser()" [ngClass]="{'following': loggedInUser.followingList && loggedInUser.followingList.indexOf(user.email)==-1}">
+      <span>{{loggedInUser.followingList && loggedInUser.followingList.indexOf(user.email)==-1 ? 'Follow' : 'Unfollow'}}</span>
+    </button>
+  </div>
+  <div *ngIf="user.favorites && user.favorites.length > 0"class="top-five-list">
+    <h2 class="favoriteBox">My Favorites</h2>
+    <ul *ngFor="let favoriteMovie of user.favorites">
+        <li>
+          <a class='movieLink' [routerLink]="['/discussion', {name: favoriteMovie}]">{{favoriteMovie}}</a>
+        </li>
+    </ul>
+  </div>
+  <div *ngIf="user.wantToWatch && user.wantToWatch.length > 0"class="top-five-list">
+    <h2 class="favoriteBox">Want to Watch</h2>
+    <ul *ngFor="let WantToWatchMovie of user.wantToWatch">
+        <li>
+          <a class='movieLink' [routerLink]="['/discussion', {name: WantToWatchMovie}]">{{WantToWatchMovie}}</a>
+        </li>
+    </ul>
+  </div>
+  <table>
+    <tr>
+        <th class="table-title">My Reviews</th>
+    </tr>
+    <tr  class="tbl-header">
+      <th>Movie</th>
+      <th>Topic</th>
+      <th>Content</th> 
+      <th>Likes</th>
+      <th>Date</th>
+    </tr>
+        <tr *ngFor="let post of posts">
+          <th (click)="goToMoviePage(post)" scope="row" class="movie-col">{{post.split(': ')[0]}}</th>
+          <td>{{post.split(': ')[1].split(' - ')[0].split('~')[0]}}</td>
+          <td>{{post.split(': ')[1].split(' - ')[0].split('~')[1]}}</td>
+          <td>0</td>
+          <td>{{post.split(': ')[1].split(' - ')[1]}}</td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<div *ngIf="showList" class="data-list">
+  <button (click)="showList=false">Back</button>
+  <h1>{{listTitle}}</h1>
+  <ul>
+    <li *ngFor="let item of profileItems" (click)="goToProfile(item)" class="list-item">{{item}}</li>
+  </ul>
+</div>

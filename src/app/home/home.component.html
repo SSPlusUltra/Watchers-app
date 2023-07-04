@@ -1,0 +1,49 @@
+<style>
+</style>
+
+<toolbar [showProfileButton]="(auth.isAuthenticated$ | async)==true" [showHomeLink]="false"></toolbar>
+
+
+<div class="content" role="main">
+
+  <!-- Highlight Card -->
+  <div class="card highlight-card card-small">
+    {{ title }}
+
+  </div>
+
+  <!-- <div class="movie-list"> -->
+  <!-- <img class="left arrow" (click)="prevImage()" src="assets/left_arrow.png"> -->
+  <div class="photo-list">
+    <div class="arrow left">
+    <img src="assets/left_arrow.png" (click)="prevImage()">
+  </div>
+
+
+  <img *ngFor="let image of randomImages; let i = index" 
+  [src]="image.imgPath ? image.imgPath : ''" 
+  [ngClass]="{'big': i === currentIndex}"
+  [routerLink]="['/discussion', {imgPath: image.imgPath, name: image.name}]"
+  (click)="imageClicked(i)">
+
+         <div class="arrow right">
+    <img src="assets/right_arrow.png" (click)="nextImage()">
+  </div>
+  </div>
+  <!-- <img class="right arrow" (click)="nextImage()" src="assets/right_arrow.png"> -->
+<!-- </div>  -->
+
+  <a class="search" routerLink="/search"><h2>Trending Now</h2></a>
+
+  <div class="image-gallery">
+    <div class="image" *ngFor="let catogory of catogories$ | async">
+      <a [routerLink]="['/search', catogory.title]">
+      <img [src]="catogory.src" [alt]="catogory.title" height="270">
+    </a>
+      <h3>{{ catogory.title }}</h3>
+    </div>
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>
